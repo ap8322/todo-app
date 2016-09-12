@@ -1,5 +1,9 @@
 # 課題（todo-app）
 
+## 課題内容
+Angular.js（1.4系） x TypeScript x JQuery
+を使用して以下要件を満たすpdatewebアプリケーションを作成する。
+
 ## 要件一覧
 - TODOを追加できること
     - 項目1：タイトル
