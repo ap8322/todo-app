@@ -3,23 +3,32 @@
 class DDO implements ng.IDirective {
   scope = {};
   restrict = 'E';
-  controller = helloWorldController;
-  template = '<h1>{{ctrl.title}}</h1>';
+  controller = todoListController;
+  templateUrl = 'template/todo.html';
   controllerAs = 'ctrl';
 }
 
-class helloWorldController {
-  private title: string;
+class todoListController {
+  public title: string;
+  public todos = [
+          {text:'learn angular', done:true},
+          {text:'build an angular app', done:false}];
+
   constructor(){
-    this.hello();
+      this.hello()
   }
+
   private hello(): void {
-      this.title = 'Hello, World!';
+      this.title = 'TODO';
+  }
+
+  public add(): void {
+      this.todos.push({text:this.text})
   }
 }
 
 (function(){
   angular
     .module('app', [])
-    .directive('helloWorld', () => new DDO())
+    .directive('todoList', () => new DDO())
 })();
