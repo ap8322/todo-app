@@ -1,8 +1,11 @@
-<h1>{{ctrl.title}}</h1>
 <ul>
+    <form ng-submit="ctrl.add()">
+        <input ng-model="ctrl.text" type="text">
+        <input ng-click="ctrl.hello()" type="submit" value="add">
+    </form>
     <li ng-repeat="todo in ctrl.todos">
         <input type="checkbox" ng-model="todo.done">
-        {{todo.text}}
+        <span class="done-{{todo.done}}">{{todo.text}}</span>
+        <span class="time">{{todo.time}}</span>
     </li>
-    <button ng-click="ctrl.hello()">add</button>
 </ul>

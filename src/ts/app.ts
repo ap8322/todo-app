@@ -4,26 +4,36 @@ class DDO implements ng.IDirective {
   scope = {};
   restrict = 'E';
   controller = todoListController;
+    controllerAs = 'ctrl';
   templateUrl = 'template/todo.html';
-  controllerAs = 'ctrl';
 }
 
 class todoListController {
-  public title: string;
-  public todos = [
-          {text:'learn angular', done:true},
-          {text:'build an angular app', done:false}];
+    public text:string;
 
-  constructor(){
-      this.hello()
-  }
+    public todos = [
+          {
+              text:'learn angular',
+              time: this.getDate(),
+              done:true
+          },
+          {
+              text:'build an angular app',
+              time: this.getDate(),
+              done:false
+          }
+    ];
 
-  private hello(): void {
-      this.title = 'TODO';
-  }
+  constructor() {}
 
+  //あとでtodoServiceに分ける｡
   public add(): void {
-      this.todos.push({text:this.text})
+      this.todos.push({text:this.text , time: this.getDate(), done:false});
+  }
+
+  public getDate(): string{
+       var date: Date= new Date();
+      return date.getHours()+"時"+date.getMinutes()+"分";
   }
 }
 
