@@ -1,9 +1,10 @@
 <ul>
+	<input type="text" ng-model="ctrl.search" placeholder="Search">
     <form ng-submit="ctrl.add()">
         <input ng-model="ctrl.text" type="text">
         <input ng-click="ctrl.hello()" type="submit" value="add">
     </form>
-    <li ng-repeat="todo in ctrl.todos">
+    <li ng-repeat="todo in ctrl.todos | filter:ctrl.search | orderBy:'text'">
         <input type="checkbox" ng-model="todo.done">
         <span class="done-{{todo.done}}">{{todo.text}}</span>
         <span class="time">{{todo.time}}</span>
