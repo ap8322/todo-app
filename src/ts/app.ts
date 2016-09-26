@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/index.d.ts" />
 
 class DDO implements ng.IDirective {
 	scope = {};
@@ -10,37 +10,48 @@ class DDO implements ng.IDirective {
 
 class todoListController {
 	public text:string;
+  public time:string;
+  private id: number;
 
 	public todos = [
-		{
-			text:'learn angular',
-			time: this.getDate(),
-			done:true
-		},
-		{
-			text:'build an angular app',
-			time: this.getDate(),
-			done:false
-		}
-	];
+    {
+      id: 1,
+      text:'learn angular',
+      time: 'aaaaaaa',
+      done:true
+    },
+    {
+      id: 2,
+      text:'build an angular app',
+      time: "aaaaaaaaaa",
+      done:false
+    }
+  ];
 
-	constructor() {}
+  constructor() {
+    this.id = 3
+  }
 
 	//あとでtodoServiceに分ける｡
 	public add(): void {
-		this.todos.push({text:this.text , time: this.getDate(), done:false});
+    this.todos.push({id: this.id ++ ,text:this.text , time: this.time, done:false});
 	}
 
-	public getDate(): string{
-		var date: Date= new Date();
-		return date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-	}
+	public edit(index: number): void {
+	  console.log("aaaaa");
+    var target = this.todos[index];
+    target.text = 'edit';
+  }
 
-	public delete(): void{}
+	public delete(todo): void {
+	  console.log(this.text);
+    this.todos = this.todos.filter(t => t !== todo)
+ };
+
 }
 
 (function(){
 	angular
-	.module('app', [])
+	.module('app',['ui.router'])
 	.directive('todoList', () => new DDO())
 })();
