@@ -12,6 +12,7 @@
         "!./node_modules/**/*/ts"
     ],
     "files": [
+		"typings/index.d.ts",
         "./ts/app.ts"
     ]
 }
