@@ -45,5 +45,8 @@
     "ts-loader": "^0.8.2",
     "tslint": "^3.14.0",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "angular-ui-router": "^0.3.1"
   }
 }
