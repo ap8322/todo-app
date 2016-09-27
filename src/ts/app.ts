@@ -9,42 +9,47 @@ class DDO implements ng.IDirective {
 }
 
 class todoListController {
-	public text:string;
-  public time:string;
-  private id: number;
+	private text:string;
+  private time:string;
+  private search: string;
+  private filterType: string;
 
-	public todos = [
+	private todos = [
     {
-      id: 1,
-      text:'learn angular',
+      text:'angular',
       time: 'aaaaaaa',
       done:true
     },
     {
-      id: 2,
-      text:'build an angular app',
+      text:'test',
       time: "aaaaaaaaaa",
       done:false
     }
   ];
 
-  constructor() {
-    this.id = 3
+  constructor() {}
+
+  public filter() {
+    if (this.filterType === "doing"){
+      return {done : false,text: this.search}
+    } else if (this.filterType === "done"){
+      return {done : true,text: this.search}
+    } else {
+      return {text: this.search}
+    }
   }
 
 	//あとでtodoServiceに分ける｡
 	public add(): void {
-    this.todos.push({id: this.id ++ ,text:this.text , time: this.time, done:false});
+    this.todos.push({text:this.text , time: this.time, done:false});
 	}
 
 	public edit(index: number): void {
-	  console.log("aaaaa");
     var target = this.todos[index];
     target.text = 'edit';
   }
 
 	public delete(todo): void {
-	  console.log(this.text);
     this.todos = this.todos.filter(t => t !== todo)
  };
 

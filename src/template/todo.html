@@ -1,32 +1,33 @@
-<ul>
-  <form ng-submit="ctrl.add()">
-    <label>title: </label>
-    <input ng-model="ctrl.text" type="text" required>
-    <label>limet: </label>
-    <input ng-model="ctrl.time" type="date" required>
-    <input type="submit" value="add">
-  </form>
+<form ng-submit="ctrl.add()">
+  <label>title: </label>
+  <input ng-model="ctrl.text" type="text" required>
+  <label>limet: </label>
+  <input ng-model="ctrl.time" type="date" required>
+  <input type="submit" value="add">
+</form>
 
-  <label>search: </label>
-  <input type="text" ng-model="q" placeholder="Search">
-  <li ng-repeat="todo in ctrl.todos | filter: q as results">
-    <input type="checkbox" ng-model="todo.done">
-    <i class="done-{{todo.done}}">{{todo.text}}</i>
-    <time class="todo-time">{{todo.time | date: 'MM月dd日'}}</time>
-    <input type="button" ng-click="ctrl.edit($index)" value="編集">
-    <input type="button" ng-click="ctrl.delete(todo)" value="削除">
-  </li>
-  <li ng-if="results.length === 0">
-    <strong>No results found...</strong>
-  </li>
-</ul>
+<section class="todo-list">
+  <ul>
+    <label>search: </label>
+    <input type="text" ng-model="ctrl.search" placeholder="Search">
+    <li ng-repeat="todo in ctrl.todos | filter: ctrl.filter()">
+      <input type="checkbox" ng-model="todo.done">
+      <i class="done-{{todo.done}}">{{todo.text}}</i>
+      <time class="todo-time">{{todo.time | date: 'MM月dd日'}}</time>
+      <input type="button" ng-click="ctrl.edit($index)" value="編集">
+      <input type="button" ng-click="ctrl.delete(todo)" value="削除">
+    </li>
+    <li ng-if="results.length === 0">
+      <strong>No results found...</strong>
+    </li>
+  </ul>
+</section>
 
-
-
-<label>Click me: <input type="checkbox" ng-model="che" ng-init="che=true" /></label><br/>
-Show when checked:
-<span ng-if="che" class="animate-if">
-  This is removed when the checkbox is unchecked.
-</span>
-
-
+<section class="filter-box">
+  <label>all</label>
+	<input type="radio" name="filter" ng-model="ctrl.filterType" value="">
+  <label>doing</label>
+	<input type="radio" name="filter" ng-model="ctrl.filterType" value="doing">
+  <label>done</label>
+	<input type="radio" name="filter" ng-model="ctrl.filterType" value="done">
+</section>
