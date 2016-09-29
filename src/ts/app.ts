@@ -13,19 +13,11 @@ class todoListController {
   private time:string;
   private search: string;
   private filterType: string;
+  private editedTodo: Object;
+  private editText:string;
+  private editTime:string;
 
-	private todos = [
-    {
-      text:'angular',
-      time: 'aaaaaaa',
-      done:true
-    },
-    {
-      text:'test',
-      time: "aaaaaaaaaa",
-      done:false
-    }
-  ];
+	private todos = [];
 
   constructor() {}
 
@@ -46,7 +38,22 @@ class todoListController {
 
 	public edit(index: number): void {
     var target = this.todos[index];
-    target.text = 'edit';
+    target.text = this.editText;
+    target.time = this.editTime;
+
+    this.editText = null;
+    this.time = null;
+    this.changeViewMode();
+  }
+
+  public changeEditMode(todo):void{
+    this.editedTodo = todo;
+    this.editText = todo.text;
+    this.editTime = todo.time;
+  }
+
+  public changeViewMode(){
+    this.editedTodo = null
   }
 
 	public delete(todo): void {

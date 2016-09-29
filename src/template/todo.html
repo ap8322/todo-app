@@ -1,33 +1,51 @@
 <form ng-submit="ctrl.add()">
-  <label>title: </label>
+  <label>Title: </label>
   <input ng-model="ctrl.text" type="text" required>
-  <label>limet: </label>
+  <label>Limit: </label>
   <input ng-model="ctrl.time" type="date" required>
   <input type="submit" value="add">
 </form>
 
+<section class="filter">
+  <div class="filter-box">
+    <label>All</label>
+    <input type="radio" name="filter" ng-model="ctrl.filterType" value="">
+    <label>Doing</label>
+    <input type="radio" name="filter" ng-model="ctrl.filterType" value="doing">
+    <label>Done</label>
+    <input type="radio" name="filter" ng-model="ctrl.filterType" value="done">
+  </div>
+  <div class="search-box">
+    <label>Search: </label>
+    <input type="text" ng-model="ctrl.search" placeholder="Search">
+  </div>
+</section>
+
 <section class="todo-list">
   <ul>
-    <label>search: </label>
-    <input type="text" ng-model="ctrl.search" placeholder="Search">
-    <li ng-repeat="todo in ctrl.todos | filter: ctrl.filter()">
-      <input type="checkbox" ng-model="todo.done">
-      <i class="done-{{todo.done}}">{{todo.text}}</i>
-      <time class="todo-time">{{todo.time | date: 'MM月dd日'}}</time>
-      <input type="button" ng-click="ctrl.edit($index)" value="編集">
-      <input type="button" ng-click="ctrl.delete(todo)" value="削除">
+    <li ng-repeat="todo in ctrl.todos | filter: ctrl.filter() as results">
+      <div class="view-mode" ng-if = "todo != ctrl.editedTodo">
+        <input type="checkbox" ng-model="todo.done">
+        <i class="done-{{todo.done}}">{{todo.text}}</i>
+        <time class="todo-time">{{todo.time | date: 'yyyy/MM/dd'}}</time>
+        <input type="button" ng-click="ctrl.changeEditMode(todo)" value="edit">
+        <input type="button" ng-click="ctrl.delete(todo)" value="delete">
+      </div>
+
+      <div class="edit-mode" ng-if="todo == ctrl.editedTodo">
+        <form ng-submit="ctrl.edit($index)">
+          <input type="checkbox" ng-model="todo.done">
+          <input ng-model="ctrl.editText" type="text" placeholder="Title" required>
+          <input ng-model="ctrl.editTime" type="date" placeholder="Limit" required>
+          <input type="submit" value="submit">
+          <input type="button" ng-click="ctrl.changeViewMode()" value="cancel">
+        </form>
+      </div>
+
     </li>
     <li ng-if="results.length === 0">
-      <strong>No results found...</strong>
+      <strong>Not found...</strong>
     </li>
   </ul>
 </section>
 
-<section class="filter-box">
-  <label>all</label>
-	<input type="radio" name="filter" ng-model="ctrl.filterType" value="">
-  <label>doing</label>
-	<input type="radio" name="filter" ng-model="ctrl.filterType" value="doing">
-  <label>done</label>
-	<input type="radio" name="filter" ng-model="ctrl.filterType" value="done">
-</section>
